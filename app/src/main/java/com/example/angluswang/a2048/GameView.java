@@ -90,8 +90,8 @@ public class GameView extends GridLayout {
     private void addCard(int cardWidth, int cardHeight) {
 
         Card c;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 4; i++) {
                 c = new Card(getContext());
                 c.setNumber(0);
                 addView(c, cardWidth, cardHeight);
@@ -111,14 +111,20 @@ public class GameView extends GridLayout {
 
         addRandomNum();
         addRandomNum();
+        addRandomNum();
+        addRandomNum();
+        addRandomNum();
+        addRandomNum();
+        addRandomNum();
+        addRandomNum();
     }
 
     private void addRandomNum() {
 
         emptyPoints.clear();
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 4; i++) {
                if (cardsMap[i][j].getNumber() <= 0) {
                     emptyPoints.add(new Point(i, j));
                }
@@ -131,6 +137,27 @@ public class GameView extends GridLayout {
 
     private void swipeLeft() {
 
+        for (int y = 0; y < 4; y++) {
+            for (int x = 0; x < 4; x++) {
+
+                for (int x1 = x+1; x1 < 4; x1++) {
+                    if (cardsMap[x1][y].getNumber() > 0) {
+
+                        if (cardsMap[x][y].getNumber() <= 0) {
+                            cardsMap[x][y].setNumber(cardsMap[x1][y].getNumber());
+                            cardsMap[x1][y].setNumber(0);
+
+                            x--;
+                            break;
+                        }else if(cardsMap[x][y].equals(cardsMap[x1][y])) {
+                            cardsMap[x][y].setNumber(cardsMap[x][y].getNumber()*2);
+                            cardsMap[x1][y].setNumber(0);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void swipeRight() {
