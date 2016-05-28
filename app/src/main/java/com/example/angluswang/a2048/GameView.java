@@ -49,15 +49,15 @@ public class GameView extends GridLayout {
                         offSetY = event.getY() - startY;
                         if (Math.abs(offSetX) > Math.abs(offSetY)) {
                             if (offSetX < -5) {
-                                System.out.println("Left");
+                                swipeLeft();
                             }else if(offSetX > 5) {
-                                System.out.println("Right");
+                                swipeRight();
                             }
                         }else {
                             if (offSetY < -5) {
-                                System.out.println("Up");
+                                swipeUp();
                             }else if(offSetY > 5) {
-                                System.out.println("Down");
+                                swipeDown();
                             }
                         }
                         break;
@@ -67,6 +67,22 @@ public class GameView extends GridLayout {
                 return true;
             }
         });
+
+    }
+
+    private void swipeLeft() {
+
+    }
+
+    private void swipeRight() {
+
+    }
+
+    private void swipeUp() {
+
+    }
+
+    private void swipeDown() {
 
     }
 }
