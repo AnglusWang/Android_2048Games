@@ -105,7 +105,9 @@ public class GameView extends GridLayout {
 
     public void startGame() {
 
-        MainActivity.getMainActivity().clearScore();
+        MainActivity aty = MainActivity.getMainActivity();
+        aty.clearScore();
+        aty.showBestScore(aty.getBestScore());
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
