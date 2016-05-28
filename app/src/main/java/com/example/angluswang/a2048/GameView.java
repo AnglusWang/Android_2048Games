@@ -1,6 +1,8 @@
 package com.example.angluswang.a2048;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -162,6 +164,7 @@ public class GameView extends GridLayout {
 
         if (merge) {
             addRandomNum();
+            checkComplete();
         }
     }
 
@@ -196,6 +199,7 @@ public class GameView extends GridLayout {
 
         if (merge) {
             addRandomNum();
+            checkComplete();
         }
     }
 
@@ -230,6 +234,7 @@ public class GameView extends GridLayout {
 
         if (merge) {
             addRandomNum();
+            checkComplete();
         }
     }
 
@@ -264,6 +269,39 @@ public class GameView extends GridLayout {
 
         if (merge) {
             addRandomNum();
+            checkComplete();
+        }
+    }
+
+    private void checkComplete() {
+
+        boolean complete = true;
+
+        All:
+        for (int y = 0; y < 4; y++) {
+            for (int x = 0; x < 4; x++) {
+                if (cardsMap[x][y].getNumber()==0 ||
+                        (x>0 && cardsMap[x][y].equals(cardsMap[x-1][y])) ||
+                        (x<3 && cardsMap[x][y].equals(cardsMap[x+1][y])) ||
+                        (y>0 && cardsMap[x][y].equals(cardsMap[x][y-1])) ||
+                        (y<3 && cardsMap[x][y].equals(cardsMap[x][y+1])) ) {
+
+                    complete = false;
+                    break All;
+                }
+            }
+        }
+
+        if (complete) {
+            new AlertDialog.Builder(getContext())
+                    .setTitle("你好")
+                    .setMessage("游戏结束 Game Over~")
+                    .setNegativeButton("重来", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startGame();
+                }
+            }).show();
         }
     }
 
