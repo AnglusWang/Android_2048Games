@@ -1,10 +1,14 @@
 package com.example.angluswang.a2048;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jeson on 2016/5/28.
@@ -79,6 +83,8 @@ public class GameView extends GridLayout {
 
         int cardWidth = (Math.min(w, h)-10)/4;
         addCard(cardWidth, cardWidth);
+
+        startGame();
     }
 
     private void addCard(int cardWidth, int cardHeight) {
@@ -87,10 +93,40 @@ public class GameView extends GridLayout {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 c = new Card(getContext());
-                c.setNumber(2);
+                c.setNumber(0);
                 addView(c, cardWidth, cardHeight);
+
+                cardsMap[i][j] = c;
             }
         }
+    }
+
+    private void startGame() {
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                cardsMap[i][j].setNumber(0);
+            }
+        }
+
+        addRandomNum();
+        addRandomNum();
+    }
+
+    private void addRandomNum() {
+
+        emptyPoints.clear();
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+               if (cardsMap[i][j].getNumber() <= 0) {
+                    emptyPoints.add(new Point(i, j));
+               }
+            }
+        }
+
+        Point p = emptyPoints.remove((int) (Math.random() * emptyPoints.size()));
+        cardsMap[p.x][p.y].setNumber(Math.random()>0.1 ? 2:4);
     }
 
     private void swipeLeft() {
@@ -108,4 +144,7 @@ public class GameView extends GridLayout {
     private void swipeDown() {
 
     }
+
+    private Card[][] cardsMap = new Card[4][4];
+    private List<Point> emptyPoints = new ArrayList<>();
 }
