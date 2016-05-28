@@ -103,7 +103,7 @@ public class GameView extends GridLayout {
         }
     }
 
-    private void startGame() {
+    public void startGame() {
 
         MainActivity.getMainActivity().clearScore();
 
@@ -294,6 +294,7 @@ public class GameView extends GridLayout {
 
         if (complete) {
             new AlertDialog.Builder(getContext())
+                    .setCancelable(false)
                     .setTitle("你好")
                     .setMessage("游戏结束 Game Over~")
                     .setNegativeButton("重来", new DialogInterface.OnClickListener() {
