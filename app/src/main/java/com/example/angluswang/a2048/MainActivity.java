@@ -32,6 +32,8 @@ public class MainActivity extends Activity {
                 gameView.startGame();
                 mTvScore.setText("0");
         }});
+
+        mAnimPlayer = (AnimPlayer) findViewById(R.id.animPlayer);
     }
 
     public void clearScore() {
@@ -65,10 +67,15 @@ public class MainActivity extends Activity {
         mTvBestScore.setText(s+"");
     }
 
-    private int mScore;
+    public AnimPlayer getAnimLayer() {
+        return mAnimPlayer;
+    }
+
+    private int mScore = 0;
     private TextView mTvScore, mTvBestScore;
     private Button btnNewGame;
     private GameView gameView;
+    private AnimPlayer mAnimPlayer;
 
     public static final String SP_KEY_BEST_SCORE = "bestScore";
 

@@ -3,4 +3,5 @@
     <string name="score">Score :</string>
     <string name="bestScore">BestScore :</string>
     <string name="newgame">New Game</string>
+    <string name="appInfo"> 2048 小游戏</string>
 </resources>

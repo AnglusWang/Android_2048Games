@@ -2,6 +2,7 @@ package com.example.angluswang.a2048;
 
 import android.content.Context;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -13,16 +14,24 @@ import android.widget.TextView;
 public class Card extends FrameLayout {
 
     private TextView label;
+    private View background;
 
     public Card(Context context) {
         super(context);
 
+        LayoutParams lp = null;
+
+        background = new View(getContext());
+        lp = new LayoutParams(-1, -1);
+        lp.setMargins(10, 10, 0, 0);
+        background.setBackgroundColor(0x33ffffff);
+        addView(background, lp);
+
         label = new TextView(getContext());
         label.setTextSize(36);
-        label.setBackgroundColor(0x33ffffff);
         label.setGravity(Gravity.CENTER);
 
-        LayoutParams lp = new LayoutParams(-1, -1);
+        lp = new LayoutParams(-1, -1);
         lp.setMargins(10, 10, 0, 0);
         addView(label, lp);
 
@@ -89,5 +98,9 @@ public class Card extends FrameLayout {
 
     public boolean equals(Card c) {
         return getNumber() == c.getNumber();
+    }
+
+    public TextView getLabel() {
+        return label;
     }
 }

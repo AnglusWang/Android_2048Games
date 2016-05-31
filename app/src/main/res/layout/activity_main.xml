@@ -62,13 +62,33 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/newgame" />
-    
-    <com.example.angluswang.a2048.GameView
-        android:id="@+id/gameView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
 
-    </com.example.angluswang.a2048.GameView>
+    <FrameLayout
+        android:id="@+id/gameContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <com.example.angluswang.a2048.GameView
+            android:id="@+id/gameView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.example.angluswang.a2048.GameView>
+
+        <com.example.angluswang.a2048.AnimPlayer
+            android:id="@+id/animPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.example.angluswang.a2048.AnimPlayer>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="@string/appInfo"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </LinearLayout>

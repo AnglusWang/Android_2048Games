@@ -131,8 +131,12 @@ public class GameView extends GridLayout {
             }
         }
 
-        Point p = emptyPoints.remove((int) (Math.random() * emptyPoints.size()));
-        cardsMap[p.x][p.y].setNumber(Math.random()>0.1 ? 2:4);
+        if (emptyPoints.size() > 0) {
+            Point p = emptyPoints.remove((int) (Math.random() * emptyPoints.size()));
+            cardsMap[p.x][p.y].setNumber(Math.random()>0.1 ? 2:4);
+
+            MainActivity.getMainActivity().getAnimLayer().createScaleTo1(cardsMap[p.x][p.y]);
+        }
     }
 
     private void swipeLeft() {
@@ -146,12 +150,18 @@ public class GameView extends GridLayout {
                     if (cardsMap[x1][y].getNumber() > 0) {
 
                         if (cardsMap[x][y].getNumber() <= 0) {
+                            MainActivity.getMainActivity().getAnimLayer()
+                                    .createMoveAnim(cardsMap[x1][y],cardsMap[x][y], x1, x, y, y);
+
                             cardsMap[x][y].setNumber(cardsMap[x1][y].getNumber());
                             cardsMap[x1][y].setNumber(0);
 
                             merge = true;
                             x--;
                         }else if(cardsMap[x][y].equals(cardsMap[x1][y])) {
+                            MainActivity.getMainActivity().getAnimLayer()
+                                    .createMoveAnim(cardsMap[x1][y], cardsMap[x][y], x1, x, y, y);
+
                             cardsMap[x][y].setNumber(cardsMap[x][y].getNumber()*2);
                             cardsMap[x1][y].setNumber(0);
 
@@ -181,12 +191,20 @@ public class GameView extends GridLayout {
                     if (cardsMap[x1][y].getNumber() > 0) {
 
                         if (cardsMap[x][y].getNumber() <= 0) {
+
+                            MainActivity.getMainActivity().getAnimLayer()
+                                    .createMoveAnim(cardsMap[x1][y], cardsMap[x][y],x1, x, y, y);
+
                             cardsMap[x][y].setNumber(cardsMap[x1][y].getNumber());
                             cardsMap[x1][y].setNumber(0);
 
                             merge = true;
                             x++;
                         }else if(cardsMap[x][y].equals(cardsMap[x1][y])) {
+
+                            MainActivity.getMainActivity().getAnimLayer()
+                                    .createMoveAnim(cardsMap[x1][y], cardsMap[x][y],x1, x, y, y);
+
                             cardsMap[x][y].setNumber(cardsMap[x][y].getNumber()*2);
                             cardsMap[x1][y].setNumber(0);
 
@@ -216,12 +234,20 @@ public class GameView extends GridLayout {
                     if (cardsMap[x][y1].getNumber() > 0) {
 
                         if (cardsMap[x][y].getNumber() <= 0) {
+
+                            MainActivity.getMainActivity().getAnimLayer()
+                                    .createMoveAnim(cardsMap[x][y1], cardsMap[x][y],x, x, y1, y);
+
                             cardsMap[x][y].setNumber(cardsMap[x][y1].getNumber());
                             cardsMap[x][y1].setNumber(0);
 
                             merge = true;
                             y--;
                         }else if(cardsMap[x][y].equals(cardsMap[x][y1])) {
+
+                            MainActivity.getMainActivity().getAnimLayer()
+                                    .createMoveAnim(cardsMap[x][y1], cardsMap[x][y],x, x, y1, y);
+
                             cardsMap[x][y].setNumber(cardsMap[x][y].getNumber()*2);
                             cardsMap[x][y1].setNumber(0);
 
@@ -251,12 +277,20 @@ public class GameView extends GridLayout {
                     if (cardsMap[x][y1].getNumber() > 0) {
 
                         if (cardsMap[x][y].getNumber() <= 0) {
+
+                            MainActivity.getMainActivity().getAnimLayer()
+                                    .createMoveAnim(cardsMap[x][y1], cardsMap[x][y], x, x, y1, y);
+
                             cardsMap[x][y].setNumber(cardsMap[x][y1].getNumber());
                             cardsMap[x][y1].setNumber(0);
 
                             merge = true;
                             y++;
                         }else if(cardsMap[x][y].equals(cardsMap[x][y1])) {
+
+                            MainActivity.getMainActivity().getAnimLayer()
+                                    .createMoveAnim(cardsMap[x][y1], cardsMap[x][y], x, x, y1, y);
+
                             cardsMap[x][y].setNumber(cardsMap[x][y].getNumber()*2);
                             cardsMap[x][y1].setNumber(0);
 
@@ -284,9 +318,9 @@ public class GameView extends GridLayout {
             for (int x = 0; x < Config.LINE; x++) {
                 if (cardsMap[x][y].getNumber()==0 ||
                         (x>0 && cardsMap[x][y].equals(cardsMap[x-1][y])) ||
-                        (x<3 && cardsMap[x][y].equals(cardsMap[x+1][y])) ||
+                        (x<Config.LINE -1 && cardsMap[x][y].equals(cardsMap[x+1][y])) ||
                         (y>0 && cardsMap[x][y].equals(cardsMap[x][y-1])) ||
-                        (y<3 && cardsMap[x][y].equals(cardsMap[x][y+1])) ) {
+                        (y<Config.LINE - 1 && cardsMap[x][y].equals(cardsMap[x][y+1])) ) {
 
                     complete = false;
                     break All;
