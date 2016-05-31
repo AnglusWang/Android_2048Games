@@ -39,7 +39,7 @@ public class GameView extends GridLayout {
 
     private void initGameView() {
 
-        setColumnCount(4);
+        setColumnCount(Config.LINE);
         setBackgroundColor(0xffbbada0);
 
         setOnTouchListener(new OnTouchListener() {
@@ -83,8 +83,8 @@ public class GameView extends GridLayout {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        int cardWidth = (Math.min(w, h)-10)/4;
-        addCard(cardWidth, cardWidth);
+        Config.CARD_WIDTH = (Math.min(w, h)-10)/ Config.LINE;
+        addCard(Config.CARD_WIDTH, Config.CARD_WIDTH);
 
         startGame();
     }
@@ -92,8 +92,8 @@ public class GameView extends GridLayout {
     private void addCard(int cardWidth, int cardHeight) {
 
         Card c;
-        for (int j = 0; j < 4; j++) {
-            for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < Config.LINE; j++) {
+            for (int i = 0; i < Config.LINE; i++) {
                 c = new Card(getContext());
                 c.setNumber(0);
                 addView(c, cardWidth, cardHeight);
@@ -109,8 +109,8 @@ public class GameView extends GridLayout {
         aty.clearScore();
         aty.showBestScore(aty.getBestScore());
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < Config.LINE; i++) {
+            for (int j = 0; j < Config.LINE; j++) {
                 cardsMap[i][j].setNumber(0);
             }
         }
@@ -123,8 +123,8 @@ public class GameView extends GridLayout {
 
         emptyPoints.clear();
 
-        for (int j = 0; j < 4; j++) {
-            for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < Config.LINE; j++) {
+            for (int i = 0; i < Config.LINE; i++) {
                if (cardsMap[i][j].getNumber() <= 0) {
                     emptyPoints.add(new Point(i, j));
                }
@@ -139,10 +139,10 @@ public class GameView extends GridLayout {
 
         boolean merge = false;
 
-        for (int y = 0; y < 4; y++) {
-            for (int x = 0; x < 4; x++) {
+        for (int y = 0; y < Config.LINE; y++) {
+            for (int x = 0; x < Config.LINE; x++) {
 
-                for (int x1 = x+1; x1 < 4; x1++) {
+                for (int x1 = x+1; x1 < Config.LINE; x1++) {
                     if (cardsMap[x1][y].getNumber() > 0) {
 
                         if (cardsMap[x][y].getNumber() <= 0) {
@@ -174,8 +174,8 @@ public class GameView extends GridLayout {
 
         boolean merge = false;
 
-        for (int y = 0; y < 4; y++) {
-            for (int x = 3; x >= 0; x--) {
+        for (int y = 0; y < Config.LINE; y++) {
+            for (int x = Config.LINE - 1; x >= 0; x--) {
 
                 for (int x1 = x-1; x1 >= 0; x1--) {
                     if (cardsMap[x1][y].getNumber() > 0) {
@@ -209,10 +209,10 @@ public class GameView extends GridLayout {
 
         boolean merge = false;
 
-        for (int x = 0; x < 4; x++) {
-            for (int y = 0; y < 4; y++) {
+        for (int x = 0; x < Config.LINE; x++) {
+            for (int y = 0; y < Config.LINE; y++) {
 
-                for (int y1 = y+1; y1 < 4; y1++) {
+                for (int y1 = y+1; y1 < Config.LINE; y1++) {
                     if (cardsMap[x][y1].getNumber() > 0) {
 
                         if (cardsMap[x][y].getNumber() <= 0) {
@@ -244,8 +244,8 @@ public class GameView extends GridLayout {
 
         boolean merge = false;
 
-        for (int x = 0; x < 4; x++) {
-            for (int y = 3; y >= 0; y--) {
+        for (int x = 0; x < Config.LINE; x++) {
+            for (int y = Config.LINE - 1; y >= 0; y--) {
 
                 for (int y1 = y-1; y1 >= 0; y1--) {
                     if (cardsMap[x][y1].getNumber() > 0) {
@@ -280,8 +280,8 @@ public class GameView extends GridLayout {
         boolean complete = true;
 
         All:
-        for (int y = 0; y < 4; y++) {
-            for (int x = 0; x < 4; x++) {
+        for (int y = 0; y < Config.LINE; y++) {
+            for (int x = 0; x < Config.LINE; x++) {
                 if (cardsMap[x][y].getNumber()==0 ||
                         (x>0 && cardsMap[x][y].equals(cardsMap[x-1][y])) ||
                         (x<3 && cardsMap[x][y].equals(cardsMap[x+1][y])) ||
@@ -308,6 +308,6 @@ public class GameView extends GridLayout {
         }
     }
 
-    private Card[][] cardsMap = new Card[4][4];
+    private Card[][] cardsMap = new Card[Config.LINE][Config.LINE];
     private List<Point> emptyPoints = new ArrayList<>();
 }
