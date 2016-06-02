@@ -28,7 +28,7 @@ public class Card extends FrameLayout {
         addView(background, lp);
 
         label = new TextView(getContext());
-        label.setTextSize(36);
+        label.setTextSize(28);
         label.setGravity(Gravity.CENTER);
 
         lp = new LayoutParams(-1, -1);
@@ -91,7 +91,7 @@ public class Card extends FrameLayout {
                 label.setBackgroundColor(0xffedc22e);
                 break;
             default:
-                label.setBackgroundColor(0xff3c3a32);
+                label.setBackgroundColor(0xff08f704);
                 break;
         }
     }
